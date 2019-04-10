@@ -59,27 +59,29 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
 
         // Update is called once per frame
-        private void FutureUpdate()
+        private void Update()
         {
             RotateView();
+	    float speed;
             if(Input.GetKey("joystick button 3"))
             {
                 m_MoveDir = new Vector3(m_Camera.transform.localEulerAngles.x, m_Camera.transform.localEulerAngles.y, m_Camera.transform.localEulerAngles.z);
 //                m_MoveDir = m_Camera.transform.TransformDirection(m_MoveDir);
-                m_MoveDir *= 1;
+		speed = 1;
             } else
             {
                 m_MoveDir = new Vector3(m_Camera.transform.localEulerAngles.x, m_Camera.transform.localEulerAngles.y, m_Camera.transform.localEulerAngles.z);
                 //m_MoveDir = m_Camera.transform.TransformDirection(m_MoveDir);
-                m_MoveDir *= 0f;
+                speed = 0;
             }
-
-        
+	    
+	    m_MoveDir = m_MoveDir.normalized;
+            m_MoveDir = speed * Time.deltaTime;
             // Move Character Controller
-            m_CharacterController.Move(m_MoveDir* Time.deltaTime);
+            m_CharacterController.Move(m_MoveDir);
         }
 
-        private void Update()
+        private void OldUpdate()
         {
             RotateView();
             // the jump state needs to read here to make sure it is not missed
