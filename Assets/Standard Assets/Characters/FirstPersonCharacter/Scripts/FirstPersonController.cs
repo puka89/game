@@ -62,32 +62,10 @@ namespace UnityStandardAssets.Characters.FirstPerson
         private void Update()
         {
             RotateView();
-	    float speed;
-            if(Input.GetKey("joystick button 3"))
-            {
-                m_MoveDir = new Vector3(m_Camera.transform.localEulerAngles.x, m_Camera.transform.localEulerAngles.y, m_Camera.transform.localEulerAngles.z);
-//                m_MoveDir = m_Camera.transform.TransformDirection(m_MoveDir);
-		speed = 1;
-            } else
-            {
-                m_MoveDir = new Vector3(m_Camera.transform.localEulerAngles.x, m_Camera.transform.localEulerAngles.y, m_Camera.transform.localEulerAngles.z);
-                //m_MoveDir = m_Camera.transform.TransformDirection(m_MoveDir);
-                speed = 0;
-            }
-	    
-	    m_MoveDir = m_MoveDir.normalized;
-            m_MoveDir = speed * Time.deltaTime;
-            // Move Character Controller
-            m_CharacterController.Move(m_MoveDir);
-        }
-
-        private void OldUpdate()
-        {
-            RotateView();
             // the jump state needs to read here to make sure it is not missed
             if (!m_Jump)
             {
-                m_Jump = Input.GetKeyDown("joystick button 3");
+                m_Jump = CrossPlatformInputManager.GetButtonDown("Jump");
             }
 
             if (!m_PreviouslyGrounded && m_CharacterController.isGrounded)
@@ -114,7 +92,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
         }
 
 
-        private void bullshit()
+        private void FixedUpdate()
         {
             float speed;
             GetInput(out speed);
