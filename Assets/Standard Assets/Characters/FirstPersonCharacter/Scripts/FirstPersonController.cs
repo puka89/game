@@ -100,19 +100,19 @@ namespace UnityStandardAssets.Characters.FirstPerson
             Vector3 desiredMove = m_Camera.transform.forward*m_Input.y + m_Camera.transform.right*m_Input.x;
 
             // get a normal for the surface that is being touched to move along it
-            //RaycastHit hitInfo;
-            //Physics.SphereCast(m_Camera.transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
-                               //m_CharacterController.height/2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
-            //desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
-            desiredMove = desiredMove.normalized;
+            RaycastHit hitInfo;
+            Physics.SphereCast(m_Camera.transform.position, m_CharacterController.radius, Vector3.down, out hitInfo,
+                               m_CharacterController.height/2f, Physics.AllLayers, QueryTriggerInteraction.Ignore);
+            desiredMove = Vector3.ProjectOnPlane(desiredMove, hitInfo.normal).normalized;
+//            desiredMove = desiredMove.normalized;
             m_MoveDir.x = desiredMove.x*speed;
             m_MoveDir.z = desiredMove.z*speed;
-            m_MoveDir.y = desiredMove.y*speed;
+//            m_MoveDir.y = desiredMove.y*speed;
 
 
             if (m_CharacterController.isGrounded)
             {
-//                m_MoveDir.y = -m_StickToGroundForce;
+                m_MoveDir.y = -m_StickToGroundForce;
 
                 if (m_Jump)
                 {
