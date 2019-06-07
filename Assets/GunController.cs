@@ -54,7 +54,8 @@ public class GunController : MonoBehaviour
 
                 if (hit.rigidbody != null)
                 {
-                    hit.rigidbody.AddForce(-hit.normal * hitForce);
+                    //hit.rigidbody.AddForce(-hit.normal * hitForce);
+                    Destroy(hit.transform.gameObject);
                 }
             }
             else
